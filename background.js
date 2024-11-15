@@ -1,4 +1,3 @@
-// background.js
 let studyInterval;
 let lastStudyDate;
 
@@ -14,13 +13,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     stopStudyTimer();
   }
 });
-
-chrome.storage.onChanged.addListener((changes, namespace) => {
-    if (namespace === 'local' && changes.level && changes.level.newValue === 1) {
-      // If level was reset to 1, stop the study timer
-      stopStudyTimer();
-    }
-  });
 
 async function startStudyTimer() {
   studyInterval = setInterval(async () => {

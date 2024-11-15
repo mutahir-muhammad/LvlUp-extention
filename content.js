@@ -1,4 +1,3 @@
-// popup.js
 let isStudying = false;
 let studyTimer;
 
@@ -9,11 +8,6 @@ const getXPForLevel = (level) => level * 100;
 const levelUpSound = document.getElementById('levelUpSound');
 const xpSound = document.getElementById('xpSound');
 const soundEnabled = document.getElementById('soundEnabled');
-
-const resetButton = document.getElementById('resetProgress');
-const resetModal = document.getElementById('resetModal');
-const confirmResetButton = document.getElementById('confirmReset');
-const cancelResetButton = document.getElementById('cancelReset');
 
 // Load sound preference
 chrome.storage.local.get(['soundEnabled'], (result) => {
@@ -56,68 +50,6 @@ document.getElementById('stopStudy').addEventListener('click', () => {
   document.getElementById('startStudy').disabled = false;
   document.getElementById('stopStudy').disabled = true;
 });
-
-
-resetButton.addEventListener('click', () => {
-  // Show confirmation modal
-  resetModal.style.display = 'block';
-});
-
-cancelResetButton.addEventListener('click', () => {
-  // Hide modal
-  resetModal.style.display = 'none';
-});
-
-confirmResetButton.addEventListener('click', async () => {
-  // Reset all progress
-  await resetAllProgress();
-  // Hide modal
-  resetModal.style.display = 'none';
-  // Update UI
-  updateUI();
-  // Show confirmation notification
-  chrome.notifications.create({
-    type: 'basic',
-    iconUrl: 'icon.png',
-    title: 'Progress Reset',
-    message: 'All progress has been reset successfully.'
-  });
-});
-
-// Close modal if clicking outside
-resetModal.addEventListener('click', (e) => {
-  if (e.target === resetModal) {
-    resetModal.style.display = 'none';
-  }
-});
-
-async function resetAllProgress() {
-  // Stop study timer if it's running
-  if (isStudying) {
-    chrome.runtime.sendMessage({ action: 'stopStudying' });
-    isStudying = false;
-    document.getElementById('startStudy').disabled = false;
-    document.getElementById('stopStudy').disabled = true;
-  }
-  
-  // Reset all stored values
-  await chrome.storage.local.set({
-    xp: 0,
-    level: 1,
-    timeToday: 0,
-    streak: 0,
-    lastStudyDate: null,
-    justLeveledUp: false
-  });
-  
-  // Keep sound preference
-  const { soundEnabled } = await chrome.storage.local.get(['soundEnabled']);
-  await chrome.storage.local.set({ soundEnabled });
-  
-  // Reset UI elements
-  document.getElementById('xpProgress').style.width = '0%';
-  playSound(levelUpSound); // Play sound to confirm reset
-}
 
 async function updateUI() {
   const stats = await chrome.storage.local.get(['xp', 'level', 'timeToday', 'streak', 'justLeveledUp']);
