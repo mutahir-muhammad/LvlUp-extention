@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Study Timer RPG",
+    "version": "1.0",
+    "description": "Turn your study sessions into an RPG experience",
+    "permissions": ["storage", "tabs", "activeTab", "notifications"],
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [{
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }],
+    "web_accessible_resources": [{
+      "resources": ["sounds/*"],
+      "matches": ["<all_urls>"]
+    }]
+  }
+  
