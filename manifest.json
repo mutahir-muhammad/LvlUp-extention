@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Study Timer RPG",
-    "version": "1.0",
+    "version": "1.0.0",
     "description": "Turn your study sessions into an RPG experience",
     "permissions": ["storage", "tabs", "activeTab", "notifications"],
     "action": {
