@@ -1,0 +1,94 @@
+<!-- The provided code is an HTML document that defines the structure and styling for a "Study Timer RPG"
+web application. Here's a breakdown of what the code is doing: -->
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      width: 300px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+    .progress-container {
+      width: 100%;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+    .progress-bar {
+      height: 20px;
+      background-color: #4CAF50;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .stat-box {
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      text-align: center;
+    }
+    @keyframes levelUp {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    .level-up-animation {
+      animation: levelUp 1s ease-in-out;
+    }
+    .settings {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+    .sound-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Study Timer RPG</h2>
+  <div class="progress-container">
+    <div id="xpProgress" class="progress-bar" style="width: 0%"></div>
+  </div>
+  <div class="stats">
+    <div class="stat-box">
+      <h3>Level</h3>
+      <p id="level">1</p>
+    </div>
+    <div class="stat-box">
+      <h3>XP</h3>
+      <p id="xp">0 / 100</p>
+    </div>
+    <div class="stat-box">
+      <h3>Study Time</h3>
+      <p id="timeToday">0 min</p>
+    </div>
+    <div class="stat-box">
+      <h3>Streak</h3>
+      <p id="streak">0 days</p>
+    </div>
+  </div>
+  <button id="startStudy">Start Studying</button>
+  <button id="stopStudy">Stop</button>
+  
+  <div class="settings">
+    <div class="sound-toggle">
+      <label for="soundEnabled">Sound Effects:</label>
+      <input type="checkbox" id="soundEnabled" checked>
+    </div>
+  </div>
+
+  <audio id="levelUpSound" src="sounds/level-up.mp3" preload="auto"></audio>
+  <audio id="xpSound" src="sounds/xp-gain.mp3" preload="auto"></audio>
+  <script src="popup.js"></script>
+</body>
+</html>
