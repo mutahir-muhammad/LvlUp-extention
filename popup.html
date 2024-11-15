@@ -52,6 +52,70 @@ web application. Here's a breakdown of what the code is doing: -->
       align-items: center;
       gap: 10px;
     }
+    .reset-section {
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .reset-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .reset-button:hover {
+    background-color: #c82333;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 300px;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .modal-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .confirm-reset {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .cancel-reset {
+    background-color: #6c757d;
+    color: white;
+  }
   </style>
 </head>
 <body>
@@ -79,11 +143,27 @@ web application. Here's a breakdown of what the code is doing: -->
   </div>
   <button id="startStudy">Start Studying</button>
   <button id="stopStudy">Stop</button>
+
+  <!-- Add confirmation modal -->
+<div id="resetModal" class="modal">
+    <div class="modal-content">
+      <h3>Reset Progress</h3>
+      <p>Are you sure you want to reset all progress? This action cannot be undone.</p>
+      <div class="modal-buttons">
+        <button id="confirmReset" class="confirm-reset">Reset Everything</button>
+        <button id="cancelReset" class="cancel-reset">Cancel</button>
+      </div>
+    </div>
+  </div>
+  
   
   <div class="settings">
     <div class="sound-toggle">
       <label for="soundEnabled">Sound Effects:</label>
       <input type="checkbox" id="soundEnabled" checked>
+    </div>
+    <div class="reset-section">
+        <button id="resetProgress" class="reset-button">Reset All Progress</button>
     </div>
   </div>
 

@@ -2,6 +2,11 @@
 let studyInterval;
 let lastStudyDate;
 
+// Send message to popup when XP is gained
+function notifyXPGain() {
+  chrome.runtime.sendMessage({ action: 'xpGained' });
+}
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'startStudying') {
     startStudyTimer();
@@ -9,6 +14,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     stopStudyTimer();
   }
 });
+
+chrome.storage.onChanged.addListener((changes, namespace) => {
+    if (namespace === 'local' && changes.level && changes.level.newValue === 1) {
+      // If level was reset to 1, stop the study timer
+      stopStudyTimer();
+    }
+  });
 
 async function startStudyTimer() {
   studyInterval = setInterval(async () => {
@@ -20,6 +32,9 @@ async function startStudyTimer() {
     // Add XP and time
     xp += 10;
     timeToday += 1;
+    
+    // Notify popup about XP gain
+    notifyXPGain();
     
     // Check for level up
     const xpForNextLevel = level * 100;
